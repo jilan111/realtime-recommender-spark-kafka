@@ -46,7 +46,10 @@ warn_if() {
   fi
 }
 
-[ -d "${VENV}" ] || { echo "missing venv — see SETUP.md"; exit 2; }
+if [ ! -d "${VENV}" ]; then
+  echo "[test] creating venv with --system-site-packages (reuses pre-installed pyspark/streamlit/etc.)"
+  python3 -m venv --system-site-packages "${VENV}"
+fi
 [ -d "${KAFKA_HOME}" ] || { echo "missing Kafka — run bash scripts/01_setup_vm.sh"; exit 2; }
 # shellcheck disable=SC1091
 source "${VENV}/bin/activate"
@@ -121,8 +124,8 @@ for _ in $(seq 1 "${DURATION_SECONDS}"); do printf '.'; sleep 1; done; echo
 echo
 echo "==[ 3. validating outputs ]================================================="
 check "events landed in Kafka" bash -c "
-  '${KAFKA_HOME}/bin/kafka-run-class.sh' kafka.tools.GetOffsetShell \
-    --broker-list localhost:9092 --topic reviews --time -1 \
+  '${KAFKA_HOME}/bin/kafka-get-offsets.sh' \
+    --bootstrap-server localhost:9092 --topic reviews --time -1 \
     | awk -F: '{s+=\$3} END{exit !(s>0)}'
 "
 

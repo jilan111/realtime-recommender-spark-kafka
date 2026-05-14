@@ -78,6 +78,10 @@ def _spark() -> SparkSession:
         )
         .config("spark.sql.shuffle.partitions", "4")
         .config("spark.sql.streaming.statefulOperator.checkCorrectness.enabled", "false")
+        # Arrow avoids pyspark's pickle-based pandas<->Spark path, which
+        # infinite-recurses under Python 3.14 + pyspark 3.5 cloudpickle.
+        .config("spark.sql.execution.arrow.pyspark.enabled", "true")
+        .config("spark.sql.execution.arrow.pyspark.fallback.enabled", "false")
         .getOrCreate()
     )
 
@@ -189,7 +193,9 @@ def recommendations_for_batch(
     """foreachBatch sink: for every distinct user in the micro-batch, emit top-5."""
     spark = micro_batch.sparkSession
 
-    if micro_batch.rdd.isEmpty():
+    # Pure-DataFrame emptiness check — `.rdd.isEmpty()` triggers cloudpickle
+    # of a take(1) closure, which infinite-recurses under Python 3.14.
+    if micro_batch.limit(1).count() == 0:
         return
 
     arrived_at = time.time()
@@ -303,7 +309,7 @@ class _TrendingCache:
         self.pdf = None
 
     def update(self, batch_df: DataFrame, _batch_id: int) -> None:
-        if batch_df.rdd.isEmpty():
+        if batch_df.limit(1).count() == 0:
             return
         latest = (
             batch_df.orderBy(F.col("window_end").desc(), F.col("trending_score").desc())

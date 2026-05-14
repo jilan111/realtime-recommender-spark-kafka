@@ -29,7 +29,10 @@ VENV="${ROOT}/.venv"
 KAFKA_HOME="${HOME}/kafka"
 
 # ---- prerequisites ---------------------------------------------------------
-[ -d "${VENV}" ] || { echo "[run_demo] missing venv. Create with: python3.10 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt"; exit 1; }
+if [ ! -d "${VENV}" ]; then
+  echo "[run_demo] creating venv with --system-site-packages (reuses pre-installed pyspark/streamlit/etc.)"
+  python3 -m venv --system-site-packages "${VENV}"
+fi
 [ -d "${KAFKA_HOME}" ] || { echo "[run_demo] Kafka not installed. Run: bash scripts/01_setup_vm.sh"; exit 1; }
 
 # shellcheck disable=SC1091
