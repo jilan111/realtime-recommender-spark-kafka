@@ -1,0 +1,12 @@
+# Loose pins so this works on Python 3.10 (UTM image baseline) and Python
+# 3.14 (newer Ubuntu images). All packages below ship universal/ARM64+x86
+# wheels so the same file works on UTM (Apple Silicon) and VirtualBox (x86).
+pyspark>=3.5,<4
+kafka-python>=2.0
+kagglehub>=0.3
+pandas>=2.2
+numpy>=2.0
+pyarrow>=18
+streamlit>=1.36
+plotly>=5.20
+watchdog>=4.0
