@@ -1,4 +1,24 @@
-# Mini Project 3 — Real-Time Recommendation System
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0F2027,50:203A43,100:2C5364&height=200&section=header&text=Real-Time%20Recommender&fontSize=44&fontColor=ffffff&fontAlignY=38&desc=Streaming%20personalization%20on%20Spark%20%2B%20Kafka&descSize=16&descAlignY=60&animation=fadeIn" alt="banner" />
+
+<br/>
+
+[![Stars](https://img.shields.io/github/stars/jilan111/realtime-recommender-spark-kafka?style=for-the-badge&color=0d1117&labelColor=161b22&logo=star)](https://github.com/jilan111/realtime-recommender-spark-kafka/stargazers)
+[![Last Commit](https://img.shields.io/github/last-commit/jilan111/realtime-recommender-spark-kafka?style=for-the-badge&color=0d1117&labelColor=161b22&logo=git)](https://github.com/jilan111/realtime-recommender-spark-kafka/commits)
+[![License: MIT](https://img.shields.io/badge/License-MIT-0d1117?style=for-the-badge&labelColor=161b22)](LICENSE)
+
+![Apache Spark](https://img.shields.io/badge/Apache_Spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
+![Apache Kafka](https://img.shields.io/badge/Apache_Kafka-231F20?style=for-the-badge&logo=apachekafka&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![MLlib](https://img.shields.io/badge/Spark_MLlib-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
+
+</div>
+
+---
+
+# Real-Time Recommendation System on Spark + Kafka
 
 **Big Data Analytics** · Zewail City University
 
